@@ -5,11 +5,6 @@ public class PessoaJurica extends Pessoa {
     private String cnpj;
     private String razaoSocial;
 
-    public boolean validarCpf() {
-        //validar cpf
-        return true;
-    }
-
     public String getCnpj() {
         return cnpj;
     }

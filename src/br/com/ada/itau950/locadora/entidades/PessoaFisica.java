@@ -7,11 +7,6 @@ public class PessoaFisica extends Pessoa {
     private String cpf;
     private LocalDate dataNascimento;
 
-    public boolean validarCpf() {
-        //validar cpf
-        return true;
-    }
-
     public String getCpf() {
         return cpf;
     }
