@@ -1,3 +1,5 @@
+package br.com.ada.itau950.locadora;
+
 import br.com.ada.itau950.locadora.entidades.Locacao;
 import br.com.ada.itau950.locadora.entidades.Veiculo;
 import br.com.ada.itau950.locadora.exceptions.ValidacaoException;

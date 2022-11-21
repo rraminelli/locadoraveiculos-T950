@@ -39,4 +39,14 @@ public class EmailDto {
     public void setMensagem(String mensagem) {
         this.mensagem = mensagem;
     }
+
+    @Override
+    public String toString() {
+        return "EmailDto{" +
+                "emailDestinatario='" + emailDestinatario + '\'' +
+                ", nome='" + nome + '\'' +
+                ", mensagem='" + mensagem + '\'' +
+                ", assunto='" + assunto + '\'' +
+                '}';
+    }
 }

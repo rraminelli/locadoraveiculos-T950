@@ -1,8 +1,6 @@
 package br.com.ada.itau950.locadora.entidades;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 
 public class Locacao {
 

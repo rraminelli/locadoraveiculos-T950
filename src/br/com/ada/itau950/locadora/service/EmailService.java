@@ -13,7 +13,7 @@ public class EmailService {
         email.getNome();
         email.getMensagem();
 
-
+        System.out.println("Enviando o email: " + email);
 
     }
 
