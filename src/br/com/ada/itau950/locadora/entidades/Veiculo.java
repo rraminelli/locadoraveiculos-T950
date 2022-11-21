@@ -11,6 +11,26 @@ public class Veiculo {
 
     private BigDecimal valorDiariaLocacao;
 
+    private BigDecimal seguroObrigatorio;
+
+    private BigDecimal seguroRoubo;
+
+    public BigDecimal getSeguroRoubo() {
+        return seguroRoubo;
+    }
+
+    public void setSeguroRoubo(BigDecimal seguroRoubo) {
+        this.seguroRoubo = seguroRoubo;
+    }
+
+    public BigDecimal getSeguroObrigatorio() {
+        return seguroObrigatorio;
+    }
+
+    public void setSeguroObrigatorio(BigDecimal seguroObrigatorio) {
+        this.seguroObrigatorio = seguroObrigatorio;
+    }
+
     public String getMarca() {
         return marca;
     }

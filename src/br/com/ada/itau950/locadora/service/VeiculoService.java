@@ -11,11 +11,19 @@ import java.util.Map;
 
 public class VeiculoService {
 
+    private SeguroRouboService<CarroPasseio> carroPasseioSeguroRouboService = new CarroPasseioSeguroService();
+    private SeguroTotalService onibusSeguroService = new OnibusSeguroService();
+
+    private SeguroTotalService<Motocicleta> motoSeguroService = new MotoPortoSeguroSeguroService();
+
+
     public Map<String, Veiculo> recuperarVeiculoArquivo() {
 
         Map<String, Veiculo> veiculos = new HashMap<>();
 
-        Veiculo fiatUno = new CarroPasseio();
+        var fiatUno = new CarroPasseio();
+        BigDecimal fiatUnoSeguroRoubo = carroPasseioSeguroRouboService.calcularSeguroRoubo(fiatUno);
+        fiatUno.setSeguroRoubo(fiatUnoSeguroRoubo);
         fiatUno.setMarca("Fiat");
         fiatUno.setModelo("Uno");
         fiatUno.setAno(2021);
@@ -24,7 +32,11 @@ public class VeiculoService {
 
         veiculos.put(fiatUno.getPlaca(), fiatUno);
 
-        Veiculo hondaCG = new Motocicleta();
+        Motocicleta hondaCG = new Motocicleta();
+        BigDecimal hondaCGSeguroObrigatorio = motoSeguroService.calcularSeguroObrigatorio(hondaCG);
+        BigDecimal hondaCGSeguroRoubo = motoSeguroService.calcularSeguroRoubo(hondaCG);
+        hondaCG.setSeguroRoubo(hondaCGSeguroRoubo);
+        hondaCG.setSeguroObrigatorio(hondaCGSeguroObrigatorio);
         hondaCG.setMarca("Honda");
         hondaCG.setModelo("CG");
         hondaCG.setAno(2022);
@@ -34,6 +46,10 @@ public class VeiculoService {
         veiculos.put(hondaCG.getPlaca(), hondaCG);
 
         Veiculo onibus = new Onibus();
+        BigDecimal mercedesSprinterSeguroObrigatorio = onibusSeguroService.calcularSeguroObrigatorio(onibus);
+        BigDecimal mercedesSprinterSeguroRoubo = onibusSeguroService.calcularSeguroObrigatorio(onibus);
+        onibus.setSeguroObrigatorio(mercedesSprinterSeguroObrigatorio);
+        onibus.setSeguroRoubo(mercedesSprinterSeguroRoubo);
         onibus.setMarca("Mercedes");
         onibus.setModelo("Sprinter 616");
         onibus.setAno(2022);
