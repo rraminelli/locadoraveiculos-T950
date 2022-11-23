@@ -42,11 +42,9 @@ public class EmailDto {
 
     @Override
     public String toString() {
-        return "EmailDto{" +
-                "emailDestinatario='" + emailDestinatario + '\'' +
-                ", nome='" + nome + '\'' +
-                ", mensagem='" + mensagem + '\'' +
-                ", assunto='" + assunto + '\'' +
-                '}';
+        return "\nemailDestinatario='" + emailDestinatario + '\'' +
+                "\nnome='" + nome + '\'' +
+                "\nmensagem='" + mensagem + '\'' +
+                "\nassunto='" + assunto + '\'';
     }
 }

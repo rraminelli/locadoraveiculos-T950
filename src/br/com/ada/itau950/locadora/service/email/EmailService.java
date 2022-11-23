@@ -1,8 +1,8 @@
-package br.com.ada.itau950.locadora.service;
+package br.com.ada.itau950.locadora.service.email;
 
 import br.com.ada.itau950.locadora.dto.EmailDto;
 
-public class EmailService {
+public final class EmailService {
 
     public void enviarEmail(EmailDto email) {
 

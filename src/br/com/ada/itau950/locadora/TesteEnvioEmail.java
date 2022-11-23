@@ -1,7 +1,7 @@
 package br.com.ada.itau950.locadora;
 
 import br.com.ada.itau950.locadora.dto.EmailDto;
-import br.com.ada.itau950.locadora.service.EmailService;
+import br.com.ada.itau950.locadora.service.email.EmailService;
 
 public class TesteEnvioEmail {
 

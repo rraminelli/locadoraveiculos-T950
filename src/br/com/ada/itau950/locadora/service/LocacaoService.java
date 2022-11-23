@@ -2,48 +2,60 @@ package br.com.ada.itau950.locadora.service;
 
 import br.com.ada.itau950.locadora.dto.EmailDto;
 import br.com.ada.itau950.locadora.entidades.Locacao;
-import br.com.ada.itau950.locadora.entidades.PessoaFisica;
 import br.com.ada.itau950.locadora.exceptions.ValidacaoException;
 import br.com.ada.itau950.locadora.repository.LocacaoRepository;
-import br.com.ada.itau950.locadora.service.validation.ValidarPessoa;
-import br.com.ada.itau950.locadora.service.validation.ValidarPessoaFisica;
-import br.com.ada.itau950.locadora.service.validation.ValidarPessoaJuridica;
+import br.com.ada.itau950.locadora.service.email.EnvioEmailService;
+import br.com.ada.itau950.locadora.service.validation.locacao.LocacaoValidacao;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.List;
 
 public class LocacaoService {
 
     LocacaoRepository locacaoRepository = new LocacaoRepository();
 
-    public void salvarLocacao(Locacao locacao) throws ValidacaoException {
+    List<LocacaoValidacao> validacoesList;
+    EnvioEmailService emailService;
 
-        ValidarPessoa validarPessoa =
-                (locacao.getCliente() instanceof PessoaFisica) ? new ValidarPessoaFisica() : new ValidarPessoaJuridica();
-        validarPessoa.validarDocumento(locacao.getCliente());
+    public LocacaoService(List<LocacaoValidacao> validacoesList, EnvioEmailService emailService) {
+        this.validacoesList = validacoesList;
+        this.emailService = emailService;
+    }
 
-        //validacoes (validar cpf, cnpj, dataNasc)
+    public List<String> salvarLocacao(final Locacao locacao) {
 
-        //data locacao menor que devolucao
-        if (locacao.getDataHoraLocacao().isAfter(locacao.getDataHoraDevolucao())) {
-            throw new ValidacaoException("Data de locaçao nao pode ser maior que a data de devoluçao.");
-        }
+        List<String> erros = new ArrayList<>();
+
+        validacoesList.stream().parallel().forEach(locacaoValidacao -> {
+            try {
+                locacaoValidacao.validar(locacao);
+            } catch (ValidacaoException e) {
+                System.out.println("Erro:" + e.getMessage());
+                erros.add(e.getMessage());
+                //throw new RuntimeException(e.getMessage());
+            }
+        });
+
+        //tem o seguro obrigatorio pago
+        //validar o cartao de credito
 
         //salvar no banco de dados
-        locacao = locacaoRepository.salvarLocacao(locacao);
+        if (erros.isEmpty()) {
+            locacaoRepository.salvarLocacao(locacao);
 
+            //enviar um email para o cliente
+            EmailDto emailDto = new EmailDto();
+            emailDto.setNome(locacao.getCliente().getNome());
+            emailDto.setEmailDestinatario(locacao.getCliente().getEmail());
+            emailDto.setMensagem("Dados da locacao");
+            emailDto.setAssunto("Assunto");
+            emailService.enviarEmail(emailDto);
+        }
 
-
-        //enviar um email para o cliente
-        EmailDto emailDto = new EmailDto();
-        emailDto.setNome(locacao.getCliente().getNome());
-        emailDto.setEmailDestinatario(locacao.getCliente().getEmail());
-        emailDto.setMensagem("Dados da locacao");
-        emailDto.setAssunto("Assunto");
-        new EmailService().enviarEmail(emailDto);
-
-
+        return erros;
 
     }
 

@@ -1,4 +1,4 @@
-package br.com.ada.itau950.locadora.service.validation;
+package br.com.ada.itau950.locadora.service.validation.pessoa;
 
 import br.com.ada.itau950.locadora.entidades.Pessoa;
 
