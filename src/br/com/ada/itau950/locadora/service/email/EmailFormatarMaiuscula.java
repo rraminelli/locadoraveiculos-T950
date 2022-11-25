@@ -2,11 +2,11 @@ package br.com.ada.itau950.locadora.service.email;
 
 import br.com.ada.itau950.locadora.dto.EmailDto;
 
-public class EmailFormatarMaiscula implements EnvioEmailService {
+public class EmailFormatarMaiuscula implements EnvioEmailService {
 
-    EmailService emailService;
+    EnvioEmailService emailService;
 
-    public EmailFormatarMaiscula(EmailService emailService) {
+    public EmailFormatarMaiuscula(EnvioEmailService emailService) {
         this.emailService = emailService;
     }
 

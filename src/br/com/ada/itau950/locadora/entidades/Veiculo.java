@@ -11,6 +11,10 @@ public class Veiculo {
 
     private BigDecimal valorDiariaLocacao;
 
+    private BigDecimal seguroObrigatorio;
+
+    private BigDecimal seguroRoubo;
+
     public String getMarca() {
         return marca;
     }
@@ -50,4 +54,21 @@ public class Veiculo {
     public void setPlaca(String placa) {
         this.placa = placa;
     }
+
+    public BigDecimal getSeguroObrigatorio() {
+        return seguroObrigatorio;
+    }
+
+    public BigDecimal getSeguroRoubo() {
+        return seguroRoubo;
+    }
+
+    public void setSeguroObrigatorio(BigDecimal seguroObrigatorio) {
+        this.seguroObrigatorio = seguroObrigatorio;
+    }
+
+    public void setSeguroRoubo(BigDecimal seguroRoubo) {
+        this.seguroRoubo = seguroRoubo;
+    }
+
 }

@@ -1,12 +1,16 @@
 package br.com.ada.itau950.locadora;
 
 import br.com.ada.itau950.locadora.entidades.Locacao;
+import br.com.ada.itau950.locadora.entidades.Locadora;
 import br.com.ada.itau950.locadora.entidades.PessoaFisica;
 import br.com.ada.itau950.locadora.entidades.Veiculo;
-import br.com.ada.itau950.locadora.service.LocacaoService;
 import br.com.ada.itau950.locadora.service.VeiculoService;
-import br.com.ada.itau950.locadora.service.email.EmailFormatarMaiscula;
-import br.com.ada.itau950.locadora.service.email.EmailService;
+import br.com.ada.itau950.locadora.service.email.EmailFormatarMiniscula;
+import br.com.ada.itau950.locadora.service.email.EmailServiceImpl;
+import br.com.ada.itau950.locadora.service.email.EnvioEmailService;
+import br.com.ada.itau950.locadora.service.impl.LocacaoServiceImpl;
+import br.com.ada.itau950.locadora.service.impl.VeiculoServiceImpl;
+import br.com.ada.itau950.locadora.service.email.EmailFormatarMaiuscula;
 import br.com.ada.itau950.locadora.service.validation.locacao.*;
 
 import java.time.LocalDate;
@@ -28,7 +32,7 @@ public class Main {
 
     private void start() {
 
-        VeiculoService veiculoService = new VeiculoService();
+        VeiculoService veiculoService = new VeiculoServiceImpl();
 
         System.out.println("Bem vindo - Locadora de Veiculos");
 
@@ -56,7 +60,9 @@ public class Main {
         validacaosList.add(new LocacaoClienteDocumentoValidacao());
         validacaosList.add(new LocacaoVeiculoOnibusIdadeValidacao());
 
-        LocacaoService locacaoService = new LocacaoService(validacaosList, new EmailFormatarMaiscula(new EmailService()));
+        EnvioEmailService envioEmailService = new EmailFormatarMiniscula(new EmailFormatarMaiuscula(new EmailServiceImpl()));
+
+        LocacaoServiceImpl locacaoService = new LocacaoServiceImpl(validacaosList, envioEmailService);
 
         PessoaFisica cliente = new PessoaFisica();
         cliente.setCpf("12345");

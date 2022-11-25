@@ -4,9 +4,9 @@ import br.com.ada.itau950.locadora.dto.EmailDto;
 
 public class EmailFormatarMiniscula implements EnvioEmailService {
 
-    EmailService emailService;
+    EnvioEmailService emailService;
 
-    public EmailFormatarMiniscula(EmailService emailService) {
+    public EmailFormatarMiniscula(EnvioEmailService emailService) {
         this.emailService = emailService;
     }
 
